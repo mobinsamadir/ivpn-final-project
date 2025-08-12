@@ -8,8 +8,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-java@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '11'
@@ -17,15 +17,22 @@ jobs:
         with:
           channel: 'stable'
 
+      # --- NEW DEBUG STEP 1 ---
+      - name: Check File Structure
+        run: ls -R android
+
+      # --- NEW DEBUG STEP 2 ---
+      - name: Test Network Connection
+        run: curl -v https://storage.googleapis.com/download.flutter.io
+
       - name: Get dependencies
         run: flutter pub get
 
       - name: Build APK
         run: flutter build apk --release
 
-      # این بخش به‌روزرسانی شد
       - name: Upload APK Artifact
-        uses: actions/upload-artifact@v4 # <--- تغییر از v3 به v4
+        uses: actions/upload-artifact@v4
         with:
           name: release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
