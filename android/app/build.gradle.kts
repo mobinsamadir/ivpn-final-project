@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.ivpn_new"
+    namespace = "com.mobin.ivpn"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
